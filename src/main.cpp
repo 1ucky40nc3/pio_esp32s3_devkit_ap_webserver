@@ -1,8 +1,17 @@
 #include <Arduino.h>
 #include <WiFi.h>
+#include <WebServer.h>
 #include <led.h>
 #include <config.h>
 #include <secrets.h>
+
+WebServer server(80);
+
+void handleRoot()
+{
+  server.send(200, "text/html", "<h1>Hello from your ESP32!</h1>");
+  Serial.println("Handle root");
+}
 
 void setup()
 {
@@ -20,13 +29,13 @@ void setup()
   Serial.println(WiFi.softAPIP());
   Serial.print("AP SSID: ");
   Serial.println(WIFI_SSID);
+
+  server.on("/", handleRoot); // Route for the root URL
+  server.begin();             // Start the server
+  Serial.println("HTTP server started");
 }
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
-  turnLEDGreen(LED_BUILTIN); // Toggle LED
-  delay(500);
-  turnLEDBlue(LED_BUILTIN); // Toggle LED
-  delay(500);
+  server.handleClient();
 }
