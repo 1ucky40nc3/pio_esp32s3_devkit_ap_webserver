@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <WebServer.h>
+#include <ArduinoJson.h>
 #include <led.h>
 #include <config.h>
 #include <secrets.h>
@@ -11,6 +12,30 @@ void handleRoot()
 {
   server.send(200, "text/html", "<h1>Hello from your ESP32!</h1>");
   Serial.println("Handle root");
+}
+
+void handleLedGreenGet()
+{
+  StaticJsonDocument<200> doc;
+  doc["ledState"] = "green";
+
+  String jsonOutput;
+  serializeJson(doc, jsonOutput);
+  turnLEDGreen(LED_PIN);
+  server.send(200, "application/json", jsonOutput);
+  Serial.println("Handle LED green GET");
+}
+
+void handleLedOffGet()
+{
+  StaticJsonDocument<200> doc;
+  doc["ledState"] = "off";
+
+  String jsonOutput;
+  serializeJson(doc, jsonOutput);
+  turnLEDOff(LED_PIN);
+  server.send(200, "application/json", jsonOutput);
+  Serial.println("Handle LED off GET");
 }
 
 void setup()
@@ -31,7 +56,9 @@ void setup()
   Serial.println(WIFI_SSID);
 
   server.on("/", handleRoot); // Route for the root URL
-  server.begin();             // Start the server
+  server.on("/led/green", HTTP_GET, handleLedGreenGet);
+  server.on("/led/off", HTTP_GET, handleLedOffGet);
+  server.begin(); // Start the server
   Serial.println("HTTP server started");
 }
 
