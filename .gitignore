@@ -39,6 +39,7 @@
 
 # PlatformIO build artifacts
 .pio/*
+esp32-s3-devkitm-1
 
 # Hide secrets
 lib/Config/secrets.h
