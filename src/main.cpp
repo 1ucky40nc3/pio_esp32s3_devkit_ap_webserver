@@ -1,10 +1,11 @@
 #include <Arduino.h>
 #include <led.h>
+#include <config.h>
 
 void setup()
 {
-  Serial.begin(115200);
-  delay(1000); // Give time for serial monitor to connect
+  Serial.begin(SERIAL_BAUD);
+  delay(DELAY_AFTER_SERIAL_INITIALIZED); // Give time for serial monitor to connect
 }
 
 void loop()
