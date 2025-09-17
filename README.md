@@ -87,6 +87,13 @@ const char *WIFI_SSID = "INSERT_YOUR_WIFI_SSID_HERE";
 const char *WIFI_PASSWORD = "INSERT_YOUR_WIFI_PASSWORD_HERE";
 ```
 
+### Wifi Connection QR-Code
+
+You can use the [QR Code Generator](https://www.qrcode-generator.de/solutions/wifi-qr-code/) website to create a QR-code to make access to the wifi AP easiert.
+
+Insert the Wifi SSID and password from the [lib/Config/secrets.h](lib/Config/secrets.h) (see [secret configuration](#secrets)) into the website. Make sure to select the `WPA/WPA2` encription.
+
+*Note:* You can store the QR-code in the hidden [private/](private/) directory.
 
 ## Sources
 

@@ -42,3 +42,4 @@
 
 # Hide secrets
 lib/Config/secrets.h
+private/
