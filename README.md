@@ -4,6 +4,8 @@ An example project that shows how to setup a webserver on a ESP32 DevKit in Acce
 
 ## Getting Started
 
+After getting started you can find further instructions about the [usage](#usage) down below.
+
 ### Install the PlatformIO IDE VSCode Extension
 
 Install the PlatformIO IDE extension from the VSCode extension marketplace (see workspace recommendations). You may be asked to install Python. You may follow the instructions [here](https://docs.platformio.org/en/latest/faq/install-python.html).
@@ -40,6 +42,19 @@ pio run -e esp32-s3-devkitm-1 -t upload
 ```
 
 As an alternative to the command you can also use the PlatformIO buttons in VSCode. You can find the buttons below. Make sure to select the correct (`esp32-s3-devkitm-1`) environment for the upload.
+
+The next setup step is the [upload of files for the static website](#upload-the-files-for-the-static-website).
+
+### Upload the Files for the Static Website
+
+Use the following steps to upload the files for the static website:
+
+1. Create a data Folder: In the root directory of your PlatformIO project, create a new folder and name it data. This folder should be at the same level as the src and lib folders. All the files you want to upload (e.g., HTML, CSS, JavaScript, images) must be placed inside this data folder.
+2. Access the Project Tasks: Open the PlatformIO Home or Project Tasks view in VS Code (usually the "ant" icon on the left sidebar).
+3. Build the File System Image: Under the project tasks for your specific board (e.g., env:esp32dev), expand the Platform menu. You will see an option to Build Filesystem Image. Click this to compile the files in your data folder into a single binary image file that the ESP32 can understand.
+4. Upload the File System Image: After the image is built, the same menu will have an option to Upload Filesystem Image. Click this to flash the binary image to your ESP32's SPIFFS partition. Ensure your ESP32 is connected and the correct port is selected.
+
+Use the following [tutorial](https://microcontrollerslab.com/upload-files-esp32-spiffs-vs-code-platformio-ide/#:~:text=After%20you%20have%20created%20your,that%20click%20Upload%20Filesystem%20Image.) if you get stuck at the steps above.
 
 ### Run Tests
 
@@ -94,6 +109,19 @@ You can use the [QR Code Generator](https://www.qrcode-generator.de/solutions/wi
 Insert the Wifi SSID and password from the [lib/Config/secrets.h](lib/Config/secrets.h) (see [secret configuration](#secrets)) into the website. Make sure to select the `WPA/WPA2` encription.
 
 *Note:* You can store the QR-code in the hidden [private/](private/) directory.
+
+## Usage
+
+This is a simple demo on how to create a Wifi access point (AP) and a webserver on your [ESP32-S3-DevKitC-1]. After completing the [getting started](#getting-started) instructions you can power the ESP32 on and connect to the Wifi. Use the configured [secrets](#secrets) or the [Wifi QR-code](#wifi-connection-qr-code).
+
+Once you are connected you can do the following requests:
+
+- Curl the root endpoint with `curl -X GET http://192.168.4.1/`
+- Toggle the LED using the following requests
+    - Turn the LED green with `curl -X GET http://192.168.4.1/led/green`
+    - Turn the LED off with `curl -X GET http://192.168.4.1/led/off`
+- Request static files from the webserver using the `curl -X GET http://192.168.4.1/static/index.html` or opening the URL [http://192.168.4.1/static/index.html](http://192.168.4.1/static/index.html) in your browser
+
 
 ## Sources
 
