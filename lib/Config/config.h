@@ -3,7 +3,7 @@
  *
  * This constant sets the data transfer rate for the serial port,
  */
-const unsigned long SERIAL_BAUD = 115200;
+const unsigned long SERIAL_BAUD = 9600;
 
 /**
  * @brief The delay in milliseconds after serial communication is initialized.
